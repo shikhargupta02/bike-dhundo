@@ -1,0 +1,13 @@
+/* Optional: Style for carousel items */
+.carousel-item {
+  height: 100vh; /* Full viewport height */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+/* Optional: Styling for carousel control buttons */
+.carousel-control-prev,
+.carousel-control-next {
+  background-color: black;
+  border-radius: 50%;
+  padding: 10px;
+}

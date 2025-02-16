@@ -1,0 +1,10 @@
+.image-wrapper {
+  max-height: 5rem;
+}
+.body-wrapper {
+  padding: 1rem;
+  text-align: center;
+}
+.card-wrapper {
+  min-width: 30rem;
+}
