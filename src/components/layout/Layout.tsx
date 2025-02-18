@@ -4,12 +4,12 @@ import { Navbar } from "../navbar-footer/Navbar";
 
 export const Layout = () => {
   return (
-    <>
+    <div style={{width:'100%'}}>
       <Navbar />
       <div style={{ marginTop: "64px" }}>
         <Home />
-        <Footer />
       </div>
-    </>
+        <Footer />
+    </div>
   );
 };
