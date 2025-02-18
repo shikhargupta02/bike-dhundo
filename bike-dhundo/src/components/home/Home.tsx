@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { Card } from "../UI/Card";
 import "./home.css";
+import axios from "axios";
 const Home = () => {
+  const [brandData, setBrandData] = useState<
+    { brand: string; image: string }[]
+  >([]);
+  useEffect(() => {
+    axios
+      .get("https://bike-dash.onrender.com/brand")
+      .then((response) => {
+        setBrandData(response.data.brands);
+        console.log(response.data); // Handle the response data
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   // Sample data for the cards
   const cardData = [
     {
@@ -118,6 +135,18 @@ const Home = () => {
       </div>
 
       {/* Cards Section with Horizontal Scroll */}
+      <div className="container my-5">
+        <h2 className="mb-4">Our Featured Brands</h2>
+        <div className="d-flex overflow-auto gap-2">
+          {brandData.map((card) => (
+            <Card
+              imageUrl={card.image}
+              showDescription={true}
+              // buttonText="Go Somewhere"
+            />
+          ))}
+        </div>
+      </div>
       <div className="container my-5">
         <h2 className="mb-4">Our Featured Cards</h2>
         <div className="d-flex overflow-auto gap-2">
