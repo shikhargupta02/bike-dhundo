@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "../UI/Card";
 import "./home.css";
 import axios from "axios";
+import { cardData } from "../../utils/data-store";
 const Home = () => {
   const [brandData, setBrandData] = useState<
     { brand: string; image: string }[]
@@ -17,46 +18,6 @@ const Home = () => {
         console.error("Error fetching data:", error);
       });
   }, []);
-
-  // Sample data for the cards
-  const cardData = [
-    {
-      id: 1,
-      title: "Card 1",
-      description: "This is a card. it shows responsive data to the user ",
-      imageUrl: "https://picsum.photos/200/300",
-    },
-    {
-      id: 2,
-      title: "Card 2",
-      description: "This is a card. it shows responsive data to the user ",
-      imageUrl: "https://picsum.photos/200/300",
-    },
-    {
-      id: 3,
-      title: "Card 3",
-      description: "This is a card. it shows responsive data to the user ",
-      imageUrl: "https://picsum.photos/200/300",
-    },
-    {
-      id: 4,
-      title: "Card 4",
-      description: "This is a card. it shows responsive data to the user ",
-      imageUrl: "https://picsum.photos/200/300",
-    },
-    {
-      id: 5,
-      title: "Card 5",
-      description: "This is a card. it shows responsive data to the user ",
-      imageUrl: "https://picsum.photos/200/300",
-    },
-    {
-      id: 6,
-      title: "Card 6",
-      description: "This is a card. it shows responsive data to the user ",
-      imageUrl: "https://picsum.photos/200/300",
-    },
-  ];
 
   return (
     <div>
@@ -140,7 +101,8 @@ const Home = () => {
         <div className="d-flex overflow-auto gap-2">
           {brandData.map((card) => (
             <Card
-              imageUrl={card.image}
+              containerStyles="d-flex flex-fill"
+              image={{ url: card.image, alt: card.brand }}
               showDescription={true}
               // buttonText="Go Somewhere"
             />
@@ -154,7 +116,7 @@ const Home = () => {
             <Card
               title={card.title}
               description={card.description}
-              imageUrl={card.imageUrl}
+              image={{ url: card.imageUrl, alt: "alternate image" }}
               buttonText="Go Somewhere"
             />
           ))}
