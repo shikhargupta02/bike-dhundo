@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import { Card } from "../UI/Card";
 import "./home.css";
 import axios from "axios";
-import { cardData } from "../../utils/data-store";
 // import { DetailPage } from "../product-page/DetailPage";
-import { useNavigate } from "react-router-dom";
 import { ImageCarousel } from "../image-carousel/ImageCarousel";
+import { Bikes } from "./Bikes";
 const Home = () => {
-  const Navigate = useNavigate();
-  // const [showPage, setShowPage] = useState(true);
+  const [showBrand, setShowBrand] = useState("");
   const [brandData, setBrandData] = useState<
     { brand: string; image: string }[]
   >([]);
@@ -36,6 +34,7 @@ const Home = () => {
             { url: "https://picsum.photos/1920/600", alt: "this is alt text" },
             { url: "https://picsum.photos/1920/600", alt: "this is alt text" },
           ]}
+          carouselId="home-backdrop"
         />
         {/* Cards Section with Horizontal Scroll */}
         <div className="container my-5">
@@ -46,15 +45,23 @@ const Home = () => {
                 containerStyles="d-flex flex-fill"
                 image={{ url: card.image, alt: card.brand }}
                 showDescription={true}
-                buttonText="Go Somewhere"
+                buttonText="Show bikes"
                 cardClick={() => {
-                  Navigate("/about");
+                  setShowBrand(card.brand);
                 }}
               />
             ))}
           </div>
         </div>
-        <div className="container my-5">
+        {showBrand && (
+          <div className="container flex-1 mt-3">
+            <div className="container my-5">
+              <h2 className="mb-4">Featured Bikes for {showBrand}</h2>
+            </div>
+            <Bikes brandName={showBrand} />
+          </div>
+        )}
+        {/* <div className="container my-5">
           <h2 className="mb-4">Our Featured Cards</h2>
           <div className="d-flex overflow-auto gap-2">
             {cardData.map((card) => (
@@ -66,7 +73,7 @@ const Home = () => {
               />
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
       {/* ) : (
         <div>

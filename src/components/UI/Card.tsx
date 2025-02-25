@@ -1,3 +1,4 @@
+import { ImageCarousel } from "../image-carousel/ImageCarousel";
 import "./card.css";
 type cardType = {
   image?: { url: string; alt?: string };
@@ -7,6 +8,8 @@ type cardType = {
   showDescription?: boolean;
   cardClick?: () => void;
   containerStyles?: string;
+  imageCarousel?: { url: string; alt: string }[];
+  width?: string;
 };
 export const Card = ({
   title,
@@ -16,28 +19,40 @@ export const Card = ({
   showDescription = true,
   cardClick,
   containerStyles,
+  imageCarousel,
+  width,
 }: cardType) => {
   return (
-    <button
-      className={`card card-wrapper p-0 ${containerStyles}`}
-      onClick={() => {
-        if (cardClick) cardClick();
-      }}
+    <div
+      className={`card card-wrapper p-0 overflow-hidden ${containerStyles}`}
+      style={{ width: width }}
     >
-      <img
-        src={image?.url}
-        className="card-img-top image-wrapper"
-        alt={image?.alt}
-      />
+      {imageCarousel ? (
+        <ImageCarousel
+          images={imageCarousel}
+          carouselId={`card-${title?.replace(/\s+/g, "")}-${description ?? ""}`}
+        />
+      ) : (
+        <img
+          src={image?.url}
+          className="card-img-top image-wrapper"
+          alt={image?.alt}
+        />
+      )}
       {showDescription && (
         <div className="card-body body-wrapper">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{description}</p>
-          <a href="#" className="btn btn-primary">
+          <button
+            onClick={() => {
+              if (cardClick) cardClick();
+            }}
+            className="btn btn-primary"
+          >
             {buttonText}
-          </a>
+          </button>
         </div>
       )}
-    </button>
+    </div>
   );
 };

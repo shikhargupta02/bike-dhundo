@@ -1,3 +1,4 @@
+import image from "../../assets/depositphotos_227725020-stock-illustration-image-available-icon-flat-vector.jpg";
 type ImageCarouselType = {
   url: string;
   alt: string;
@@ -5,34 +6,43 @@ type ImageCarouselType = {
 
 interface ImageCarouselProps {
   images: ImageCarouselType[];
+  carouselId: string;
 }
-
-export const ImageCarousel = ({ images }: ImageCarouselProps) => {
+export const ImageCarousel = ({ images, carouselId }: ImageCarouselProps) => {
   return (
-    <div
-      id="carouselBackdrop"
-      className="carousel slide"
-      data-bs-ride="carousel"
-    >
+    <div id={carouselId} className="carousel slide " data-bs-ride="carousel">
       <div className="carousel-inner" style={{ height: "20rem" }}>
-        {images.map((item, index) => (
-          <div
-            className={`carousel-item ${index === 0 ? "active" : ""}`}
-            key={index}
-          >
+        {images.length > 0 ? (
+          images.map((item, index) => (
+            <div
+              className={`carousel-item ${index === 0 ? "active" : ""}`}
+              key={index}
+            >
+              <img
+                src={item.url}
+                className="d-block w-100 img-fluid"
+                alt={item.alt}
+                style={{ height: "20rem", objectFit: "cover" }}
+              />
+            </div>
+          ))
+        ) : (
+          <div className={`carousel-item active`}>
             <img
-              src={item.url}
+              src={image}
               className="d-block w-100 img-fluid"
-              alt={item.alt}
+              alt="No image"
               style={{ height: "20rem", objectFit: "cover" }}
             />
           </div>
-        ))}
+        )}
       </div>
+
+      {/* Carousel controls */}
       <button
         className="carousel-control-prev"
         type="button"
-        data-bs-target="#carouselBackdrop"
+        data-bs-target={`#${carouselId}`}
         data-bs-slide="prev"
         style={{
           backgroundColor: "black",
@@ -46,10 +56,11 @@ export const ImageCarousel = ({ images }: ImageCarouselProps) => {
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Previous</span>
       </button>
+
       <button
         className="carousel-control-next"
         type="button"
-        data-bs-target="#carouselBackdrop"
+        data-bs-target={`#${carouselId}`}
         data-bs-slide="next"
         style={{
           backgroundColor: "black",

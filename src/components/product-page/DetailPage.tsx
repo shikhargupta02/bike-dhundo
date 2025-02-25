@@ -12,6 +12,7 @@ export const DetailPage = () => {
             { url: "https://picsum.photos/1920/600", alt: "this is alt text" },
             { url: "https://picsum.photos/1920/600", alt: "this is alt text" },
           ]}
+          carouselId="about-product"
         />
         <div className="col-md-6 my-5">
           {/* Product Card */}
