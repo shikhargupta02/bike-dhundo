@@ -15,7 +15,7 @@ const Home = () => {
       .get("https://bike-dash.onrender.com/brand")
       .then((response) => {
         setBrandData(response.data.brands);
-        console.log(response.data); // Handle the response data
+        // console.log(response.data); // Handle the response data
       })
       .catch((error) => {
         console.error("Error fetching data:", error);

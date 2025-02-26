@@ -3,6 +3,7 @@ import { Card } from "../UI/Card";
 import axios from "axios";
 import { transformedBikesData } from "../../utils/helper";
 import { bikesDataType } from "../../utils/types";
+import { useNavigate } from "react-router-dom";
 
 type bikesType = {
   brandName: string;
@@ -10,6 +11,7 @@ type bikesType = {
 export const Bikes = ({ brandName }: bikesType) => {
   const [bikes, setBikes] = useState<bikesDataType[]>([]);
   const lastId = useRef(0);
+  const Navigate = useNavigate();
   const getMoreData = () => {
     const url = `https://bike-dash.onrender.com/bike-list?brand=${brandName}&last_id=${lastId.current}&limit=20`;
     axios
@@ -36,6 +38,17 @@ export const Bikes = ({ brandName }: bikesType) => {
               key={index}
               title={item.bikeName}
               width={"320px"}
+              cardClick={() => {
+                const userString = JSON.stringify(item);
+                const encodedUserString = encodeURIComponent(userString);
+                const queryParams = new URLSearchParams();
+                queryParams.set("bike", encodedUserString);
+                Navigate({
+                  pathname: "/about",
+                  search: queryParams.toString(),
+                });
+                // Navigate(`/about/${item.id}/${item.brandName}`);
+              }}
             />
           );
         })}
